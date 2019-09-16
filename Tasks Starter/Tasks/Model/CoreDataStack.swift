@@ -11,6 +11,13 @@ import CoreData
 
 class CoreDataStack {
     
+    static let share = CoreDataStack()
+    
+    private init() {
+        
+    }
+    
+    //Create Code Snippet
     lazy var container: NSPersistentContainer = {
         
         let container = NSPersistentContainer(name: "Tasks")
@@ -21,7 +28,20 @@ class CoreDataStack {
             }
         })
         return container
-    }()
+    }() // Creating only one instance for use
+    
+    var mainContext: NSManagedObjectContext {
+        return container.viewContext
+    }
+    
+    func saveToPersistentStore() {
+        do{
+       try mainContext.save()
+        } catch {
+            NSLog("Error saving context \(error)")
+            mainContext.reset()
+        }
+    }
     
     
 }
