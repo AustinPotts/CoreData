@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4556A660232FF18A00FD0CC5 /* Tasks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4556A65E232FF18A00FD0CC5 /* Tasks.xcdatamodeld */; };
 		4556A662232FF54800FD0CC5 /* Task+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4556A661232FF54800FD0CC5 /* Task+Convenience.swift */; };
+		4556A664232FFC0A00FD0CC5 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4556A663232FFC0A00FD0CC5 /* CoreDataStack.swift */; };
 		9D4408C7211FF431005E2116 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4408C6211FF431005E2116 /* AppDelegate.swift */; };
 		9D4408CC211FF431005E2116 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D4408CA211FF431005E2116 /* Main.storyboard */; };
 		9D4408CE211FF434005E2116 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D4408CD211FF434005E2116 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* Begin PBXFileReference section */
 		4556A65F232FF18A00FD0CC5 /* Tasks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tasks.xcdatamodel; sourceTree = "<group>"; };
 		4556A661232FF54800FD0CC5 /* Task+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Convenience.swift"; sourceTree = "<group>"; };
+		4556A663232FFC0A00FD0CC5 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		9D4408C3211FF431005E2116 /* Tasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D4408C6211FF431005E2116 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D4408CB211FF431005E2116 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 		9D4408D9211FF4EA005E2116 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4556A663232FFC0A00FD0CC5 /* CoreDataStack.swift */,
 				4556A661232FF54800FD0CC5 /* Task+Convenience.swift */,
 				4556A65E232FF18A00FD0CC5 /* Tasks.xcdatamodeld */,
 			);
@@ -174,6 +177,7 @@
 				4556A660232FF18A00FD0CC5 /* Tasks.xcdatamodeld in Sources */,
 				9D4408C7211FF431005E2116 /* AppDelegate.swift in Sources */,
 				4556A662232FF54800FD0CC5 /* Task+Convenience.swift in Sources */,
+				4556A664232FFC0A00FD0CC5 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
