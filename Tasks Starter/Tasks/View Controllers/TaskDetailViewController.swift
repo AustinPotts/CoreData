@@ -17,25 +17,37 @@ class TaskDetailViewController: UIViewController {
     var task: Task?
     
     
-    @IBAction func save(_ sender: Any) {
-    }
+   
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        updateViews()
+    }
+    
+    @IBAction func save(_ sender: Any) {
+        guard let name = nameTextField.text,
+        let notes = notesTextView.text,
+            !name.isEmpty else {return}
+        
+        if let task = task {
+            taskController?.updateTask(task: task, with: name, notes: notes)
+        } else {
+            taskController?.createTask(with: name, notes: notes)
+            
+        }
+        navigationController?.popViewController(animated: true)
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func updateViews(){
+        
+        title = task?.name ?? "Create Task"
+        
+        nameTextField.text = task?.name
+        notesTextView.text = task?.notes
+        
     }
-    */
 
 }
