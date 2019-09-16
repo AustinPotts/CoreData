@@ -14,7 +14,7 @@
         <!--Tasks-->
         <scene sceneID="5la-8G-DbN">
             <objects>
-                <tableViewController id="NEY-So-hQF" sceneMemberID="viewController">
+                <tableViewController id="NEY-So-hQF" customClass="TasksTableViewController" customModule="Tasks" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="7T8-DK-gUy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -36,6 +36,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="WI2-wJ-dAU" kind="show" identifier="ShowTaskDetail" id="SWo-5U-hct"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -44,7 +47,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Tasks" id="FUm-j1-Dc8">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="aIU-0T-di6"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="aIU-0T-di6">
+                            <connections>
+                                <segue destination="WI2-wJ-dAU" kind="show" identifier="ShowCreateTask" id="18H-U2-XRP"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p1s-Ss-srs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -54,25 +61,25 @@
         <!--Title-->
         <scene sceneID="o2c-sk-SY4">
             <objects>
-                <viewController id="WI2-wJ-dAU" sceneMemberID="viewController">
+                <viewController id="WI2-wJ-dAU" customClass="TaskDetailViewController" customModule="Tasks" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CoU-0a-20L">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZV9-3B-KBS">
-                                <rect key="frame" x="16" y="40" width="343" height="607"/>
+                                <rect key="frame" x="16" y="136" width="343" height="511"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qRz-8F-sRH">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="31.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ee-Sa-gkn">
-                                                <rect key="frame" x="0.0" y="0.0" width="73.5" height="31.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="73.5" height="30"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QoX-Lu-hGg">
-                                                <rect key="frame" x="81.5" y="0.0" width="261.5" height="31.5"/>
+                                                <rect key="frame" x="81.5" y="0.0" width="261.5" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -80,13 +87,13 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bac-5o-rL6">
-                                        <rect key="frame" x="0.0" y="39.5" width="343" height="31.5"/>
+                                        <rect key="frame" x="0.0" y="38" width="343" height="31.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0Ff-ma-Dqn">
-                                        <rect key="frame" x="0.0" y="79" width="343" height="528"/>
+                                        <rect key="frame" x="0.0" y="77.5" width="343" height="433.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -105,8 +112,16 @@
                         <viewLayoutGuide key="safeArea" id="PG6-rD-Oga"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="z9b-u2-D5W">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="FS3-p2-Jxo"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="FS3-p2-Jxo">
+                            <connections>
+                                <action selector="save:" destination="WI2-wJ-dAU" id="9sb-EQ-59t"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="nameTextField" destination="QoX-Lu-hGg" id="8Gc-Lj-fuR"/>
+                        <outlet property="notesTextView" destination="0Ff-ma-Dqn" id="100-X9-6AR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bh8-ef-2je" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -129,4 +144,7 @@
             <point key="canvasLocation" x="-278" y="153"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="18H-U2-XRP"/>
+    </inferredMetricsTieBreakers>
 </document>
