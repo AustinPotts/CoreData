@@ -90,7 +90,13 @@ class TasksTableViewController: UITableViewController {
         return cell
     }
     
-
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        guard let sectionInfo = fetchResultController.sections?[section] else {return nil}
+        
+        return sectionInfo.name.capitalized
+        
+    }
 
     
     // Override to support editing the table view.
@@ -101,8 +107,7 @@ class TasksTableViewController: UITableViewController {
             
             //Always delete the model object
             taskController.delete(task: task)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
+                    }
     }
     
 
