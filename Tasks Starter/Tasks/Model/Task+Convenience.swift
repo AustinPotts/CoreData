@@ -9,10 +9,18 @@
 import Foundation
 import CoreData
 
+enum TaskPriority: String {
+    case low
+    case normal
+    case high
+    case critical
+    
+}
+
 //Core data already created the Task class, so we just want to add some functionality to it
 extension Task {
     
-    convenience init(name: String, notes: String?, context: NSManagedObjectContext){
+    convenience init(name: String, notes: String?, priority: TaskPriority, context: NSManagedObjectContext){
         
         //Setting up the generic NSManageObject functionality of the model object
         //Generic clay
@@ -21,6 +29,7 @@ extension Task {
         //Once we have the clay we can start sculpting it into our unique model obejct
         self.name = name
         self.notes = notes
+        self.priority = priority.rawValue
         
     }
     

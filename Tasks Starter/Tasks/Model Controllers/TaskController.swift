@@ -11,8 +11,8 @@ import Foundation
 
 class TaskController {
     
-    @discardableResult func createTask(with name: String, notes: String?) -> Task {
-        let task = Task(name: name, notes: notes, context: CoreDataStack.share.mainContext)
+    @discardableResult func createTask(with name: String, notes: String?, priotirty: TaskPriority) -> Task {
+        let task = Task(name: name, notes: notes, priority: priotirty, context: CoreDataStack.share.mainContext)
        
         CoreDataStack.share.saveToPersistentStore()
         
