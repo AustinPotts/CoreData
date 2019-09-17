@@ -12,6 +12,7 @@ class TaskDetailViewController: UIViewController {
 
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet weak var prioritySegmentControl: UISegmentedControl!
     
     var taskController: TaskController?
     var task: Task?
@@ -31,10 +32,28 @@ class TaskDetailViewController: UIViewController {
         let notes = notesTextView.text,
             !name.isEmpty else {return}
         
+        let index = prioritySegmentControl.selectedSegmentIndex
+        
+        let priority = TaskPriority.allCases[index]
+        
+        //Just one way to do it
+//        switch index {
+//        case 0:
+//            priority = .low
+//        case 1:
+//            priority = .normal
+//        case 2:
+//            priority = .high
+//        case 3:
+//            priority = .critical
+//
+//        }
+        
+        
         if let task = task {
-            taskController?.updateTask(task: task, with: name, notes: notes)
+            taskController?.updateTask(task: task, with: name, notes: notes, priority: priority)
         } else {
-            taskController?.createTask(with: name, notes: notes)
+            taskController?.createTask(with: name, notes: notes, priotirty: priority )
             
         }
         navigationController?.popViewController(animated: true)
@@ -48,6 +67,14 @@ class TaskDetailViewController: UIViewController {
         nameTextField.text = task?.name
         notesTextView.text = task?.notes
         
+        if let priorityString = task?.priority,
+            let priority = TaskPriority(rawValue: priorityString) {
+            
+            let index = TaskPriority.allCases.firstIndex(of: priority) ?? 0
+        
+        prioritySegmentControl.selectedSegmentIndex = index
+        
+        }
     }
 
 }

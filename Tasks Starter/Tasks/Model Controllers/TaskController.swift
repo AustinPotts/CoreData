@@ -20,9 +20,10 @@ class TaskController {
         return task
     }
     
-    func updateTask(task: Task, with name: String, notes: String?){
+    func updateTask(task: Task, with name: String, notes: String?, priority: TaskPriority){
         task.name = name
         task.notes = notes
+        task.priority = priority.rawValue
         
         CoreDataStack.share.saveToPersistentStore()
     }
