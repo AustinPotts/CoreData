@@ -10,13 +10,39 @@ import UIKit
 import CoreData
 
 
-class TasksTableViewController: UITableViewController {
+class TasksTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     let taskController = TaskController()
     
     // NOTE! This is not a good, efficient way to do this, as the fetch request
     // will be executed every time the tasks property is accessed. We will
     // learn a better way to do this later.
+    
+    lazy var fetchResultController: NSFetchedResultsController<Task> = {
+        
+        //Create the fetch request
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        //Sort Fetched Results
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "priority", ascending: true)] //priorty is name of attribute
+        
+        
+        // YOU MUST make the descriptor with the same key path as the sectionNameKeyPath be the first sort descriptor in this array
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.share.mainContext, sectionNameKeyPath: "priority", cacheName: nil)
+        
+        frc.delegate = self
+        
+        do {
+            try frc.performFetch()
+        } catch {
+            fatalError("Error performing fetch for FRC: \(error)")
+        }
+        
+        
+        return frc
+        
+    }()
+    
+    
     var tasks: [Task] {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
         
