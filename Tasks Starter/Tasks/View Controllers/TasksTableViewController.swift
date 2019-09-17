@@ -170,7 +170,19 @@ extension TasksTableViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        <#code#>
+        
+        let sectionSet = IndexSet(integer: sectionIndex)
+        
+        switch type {
+        case .insert:
+            tableView.insertSections(sectionSet, with: .automatic)
+            
+        case .delete:
+            tableView.deleteSections(sectionSet, with: .automatic)
+            
+        default: return
+        }
+        
     }
     
 }
