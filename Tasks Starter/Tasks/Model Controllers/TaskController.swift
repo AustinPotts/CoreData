@@ -15,6 +15,37 @@ class TaskController {
     
     func fetchTaskFromServer(completion: @escaping()-> Void = {}) {
         
+        
+        //Apending path component adds a forward slash where as appending path extension adds period
+        let requestURL = baseURL.appendingPathExtension("json")
+        
+        URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
+            
+            if let error = error{
+                NSLog("error fetching tasks: \(error)")
+                completion()
+            }
+            
+            guard let data = data else{
+                NSLog("Error getting data task:")
+                completion()
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                
+                
+                
+                try
+                
+            } catch {
+                
+            }
+            
+        }.resume()
+        
+        
     }
     
     @discardableResult func createTask(with name: String, notes: String?, priotirty: TaskPriority) -> Task {

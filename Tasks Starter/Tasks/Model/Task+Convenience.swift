@@ -34,4 +34,13 @@ extension Task {
         
     }
     
+    convenience init?(taskRepresentation: TaskRepresentation, context: NSManagedObjectContext) {
+        
+        guard let identifier = UUID(uuidString: taskRepresentation.identifier) else {return nil}
+        
+        
+        
+        
+    }
+    
 }
