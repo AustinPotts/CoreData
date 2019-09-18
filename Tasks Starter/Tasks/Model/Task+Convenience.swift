@@ -20,7 +20,7 @@ enum TaskPriority: String, CaseIterable {
 //Core data already created the Task class, so we just want to add some functionality to it
 extension Task {
     
-    convenience init(name: String, notes: String?, priority: TaskPriority, context: NSManagedObjectContext){
+    convenience init(name: String, notes: String?, priority: TaskPriority, identifier: UUID = UUID(), context: NSManagedObjectContext){
         
         //Setting up the generic NSManageObject functionality of the model object
         //Generic clay
@@ -30,6 +30,7 @@ extension Task {
         self.name = name
         self.notes = notes
         self.priority = priority.rawValue
+        self.identifier = identifier
         
     }
     

@@ -11,6 +11,12 @@ import Foundation
 
 class TaskController {
     
+    let baseURL = URL(string: "https://tasks-3f211.firebaseio.com/")!
+    
+    func fetchTaskFromServer(completion: @escaping()-> Void = {}) {
+        
+    }
+    
     @discardableResult func createTask(with name: String, notes: String?, priotirty: TaskPriority) -> Task {
         let task = Task(name: name, notes: notes, priority: priotirty, context: CoreDataStack.share.mainContext)
        

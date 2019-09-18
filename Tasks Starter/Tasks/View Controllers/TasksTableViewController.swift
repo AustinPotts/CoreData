@@ -14,9 +14,7 @@ class TasksTableViewController: UITableViewController {
 
     let taskController = TaskController()
     
-    // NOTE! This is not a good, efficient way to do this, as the fetch request
-    // will be executed every time the tasks property is accessed. We will
-    // learn a better way to do this later.
+ 
     
     lazy var fetchResultController: NSFetchedResultsController<Task> = {
         
@@ -43,6 +41,9 @@ class TasksTableViewController: UITableViewController {
     }()
     
     
+    // NOTE! This is not a good, efficient way to do this, as the fetch request
+    // will be executed every time the tasks property is accessed. We will
+    // learn a better way to do this later.
     //Old way of doing fetch request
 //    var tasks: [Task] {
 //        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
