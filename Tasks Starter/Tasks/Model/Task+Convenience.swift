@@ -34,11 +34,13 @@ extension Task {
         
     }
     
-    convenience init?(taskRepresentation: TaskRepresentation, context: NSManagedObjectContext) {
+   @discardableResult convenience init?(taskRepresentation: TaskRepresentation, context: NSManagedObjectContext) {
         
-        guard let identifier = UUID(uuidString: taskRepresentation.identifier) else {return nil}
+        guard let identifier = UUID(uuidString: taskRepresentation.identifier),
+            let priority = TaskPriority(rawValue: taskRepresentation.priortiy) else {return nil}
         
         
+        self.init(name: taskRepresentation.name, notes: taskRepresentation.notes, priority: priority, identifier: identifier, context: context)
         
         
     }

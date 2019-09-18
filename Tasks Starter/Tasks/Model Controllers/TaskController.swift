@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 
 class TaskController {
@@ -35,9 +36,12 @@ class TaskController {
             do {
                 let decoder = JSONDecoder()
                 
+                //Gives us full array of task representation
+                let taskRepresentations = Array(try decoder.decode([String: TaskRepresentation].self, from: data).values)
+                
+                self.updateTasks(with: taskRepresentations)
                 
                 
-                try
                 
             } catch {
                 
@@ -47,6 +51,65 @@ class TaskController {
         
         
     }
+    
+    func updateTasks(with representations: [TaskRepresentation]){
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        let identifiersToFetch = representations.compactMap({ UUID(uuidString: $0.identifier)})
+        
+        let representationsByID = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, representations))
+        
+        //Make a mutable copy of Dictionary above
+        var tasksToCreate = representationsByID
+        
+        
+        
+        do {
+            let context = CoreDataStack.share.mainContext
+            
+            let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+                                                        //Name of Attibute
+            fetchRequest.predicate = NSPredicate(format: "identifier IN %@", identifiersToFetch)
+            
+            //Which of these tasks already exist in core data?
+            let exisitingTask = try context.fetch(fetchRequest)
+            
+            //Which need to be updated? Which need to be put into core data?
+            for task in exisitingTask {
+                guard let identifier = task.identifier,
+                    // This gets the task representation that corresponds to the task from Core Data
+                    let representation = representationsByID[identifier] else{return}
+                
+                task.name = representation.name
+                task.notes = representation.notes
+                task.priority = representation.priortiy
+                
+                tasksToCreate.removeValue(forKey: identifier)
+                
+            }
+            
+            for representation in tasksToCreate.values{
+                Task(taskRepresentation: representation, context: context)
+            }
+            
+            CoreDataStack.share.saveToPersistentStore()
+            
+        } catch {
+            NSLog("Error fetching tasks from persistent store: \(error)")
+        }
+        
+        
+    }
+    
+    
+    
     
     @discardableResult func createTask(with name: String, notes: String?, priotirty: TaskPriority) -> Task {
         let task = Task(name: name, notes: notes, priority: priotirty, context: CoreDataStack.share.mainContext)
