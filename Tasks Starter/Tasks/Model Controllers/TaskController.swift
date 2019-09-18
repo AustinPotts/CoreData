@@ -10,9 +10,58 @@ import Foundation
 import CoreData
 
 
+enum HTTPMethod: String{
+    case get = "GET"
+    case put = "PUT"
+    case post = "POST"
+    case delete = "DELETE"
+}
+
+
 class TaskController {
+    //Using this as the view did load for task controller
+    init(){
+        fetchTaskFromServer()
+    }
+    
     
     let baseURL = URL(string: "https://tasks-3f211.firebaseio.com/")!
+    
+    
+    func putTask(task: Task, completion: @escaping()-> Void = {}) {
+        
+        let identifier = task.identifier ?? UUID()
+        task.identifier = identifier
+        
+        let requestURL = baseURL.appendingPathComponent(identifier.uuidString).appendingPathExtension("json")
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HTTPMethod.put.rawValue
+        
+        guard let taskRepresentation = task.taskRepresentation else{
+            NSLog("Error")
+            completion()
+            return
+        }
+        
+        do {
+            request.httpBody = try JSONEncoder().encode(taskRepresentation)
+        } catch {
+            NSLog("Error encoding task: \(error)")
+            completion()
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { (_, _, error) in
+            if let error = error{
+                NSLog("Error putting task: \(error)")
+                completion()
+                return
+            }
+            completion()
+        }.resume()
+        
+    }
     
     func fetchTaskFromServer(completion: @escaping()-> Void = {}) {
         
@@ -44,6 +93,7 @@ class TaskController {
                 
                 
             } catch {
+                NSLog("Error decoding: \(error)")
                 
             }
             
@@ -94,7 +144,7 @@ class TaskController {
                 tasksToCreate.removeValue(forKey: identifier)
                 
             }
-            
+            //Take these tasks that arent in core data and create
             for representation in tasksToCreate.values{
                 Task(taskRepresentation: representation, context: context)
             }
@@ -115,8 +165,7 @@ class TaskController {
         let task = Task(name: name, notes: notes, priority: priotirty, context: CoreDataStack.share.mainContext)
        
         CoreDataStack.share.saveToPersistentStore()
-        
-        
+        putTask(task: task)
         return task
     }
     
@@ -124,6 +173,7 @@ class TaskController {
         task.name = name
         task.notes = notes
         task.priority = priority.rawValue
+        putTask(task: task)
         
         CoreDataStack.share.saveToPersistentStore()
     }
