@@ -15,6 +15,6 @@ struct TaskRepresentation: Codable {
     let name: String
     let notes: String?
     let identifier: String
-    let priortiy: String
+    let priority: String
     
 }

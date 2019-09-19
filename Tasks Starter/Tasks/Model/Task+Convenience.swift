@@ -24,7 +24,7 @@ extension Task {
         guard let name = name,
             let priority = priority,
             let identifier = identifier?.uuidString else{return nil}
-        return TaskRepresentation(name: name, notes: notes, identifier: identifier, priortiy: priority)
+        return TaskRepresentation(name: name, notes: notes, identifier: identifier, priority: priority)
         
     }
     
@@ -45,7 +45,7 @@ extension Task {
    @discardableResult convenience init?(taskRepresentation: TaskRepresentation, context: NSManagedObjectContext) {
         
         guard let identifier = UUID(uuidString: taskRepresentation.identifier),
-            let priority = TaskPriority(rawValue: taskRepresentation.priortiy) else {return nil}
+            let priority = TaskPriority(rawValue: taskRepresentation.priority) else {return nil}
         
         
         self.init(name: taskRepresentation.name, notes: taskRepresentation.notes, priority: priority, identifier: identifier, context: context)

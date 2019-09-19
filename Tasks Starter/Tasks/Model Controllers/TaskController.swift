@@ -120,15 +120,20 @@ class TaskController {
         var tasksToCreate = representationsByID
         
         
-        
+        let context = CoreDataStack.share.container.newBackgroundContext()
+        context.performAndWait {
+            
         do {
-            let context = CoreDataStack.share.mainContext
+            
             
             let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
                                                         //Name of Attibute
             fetchRequest.predicate = NSPredicate(format: "identifier IN %@", identifiersToFetch)
             
             //Which of these tasks already exist in core data?
+            
+            
+            
             let exisitingTask = try context.fetch(fetchRequest)
             
             //Which need to be updated? Which need to be put into core data?
@@ -139,7 +144,7 @@ class TaskController {
                 
                 task.name = representation.name
                 task.notes = representation.notes
-                task.priority = representation.priortiy
+                task.priority = representation.priority
                 
                 tasksToCreate.removeValue(forKey: identifier)
                 
@@ -149,10 +154,11 @@ class TaskController {
                 Task(taskRepresentation: representation, context: context)
             }
             
-            CoreDataStack.share.saveToPersistentStore()
+            CoreDataStack.share.save(context: context)
             
         } catch {
             NSLog("Error fetching tasks from persistent store: \(error)")
+        }
         }
         
         
@@ -164,7 +170,7 @@ class TaskController {
     @discardableResult func createTask(with name: String, notes: String?, priotirty: TaskPriority) -> Task {
         let task = Task(name: name, notes: notes, priority: priotirty, context: CoreDataStack.share.mainContext)
        
-        CoreDataStack.share.saveToPersistentStore()
+        CoreDataStack.share.save()
         putTask(task: task)
         return task
     }
@@ -175,12 +181,12 @@ class TaskController {
         task.priority = priority.rawValue
         putTask(task: task)
         
-        CoreDataStack.share.saveToPersistentStore()
+        CoreDataStack.share.save()
     }
     
     func delete(task: Task) {
         CoreDataStack.share.mainContext.delete(task)
-        CoreDataStack.share.saveToPersistentStore()
+        CoreDataStack.share.save()
     }
     
     
